@@ -4,7 +4,6 @@ mod csv_reader;
 mod tests {
     #[test]
     fn it_works() {
-        super::csv_reader::say_hi();
-        assert!(true);
+        assert_eq!(super::csv_reader::get_file_content().len(), 6952);
     }
 }
