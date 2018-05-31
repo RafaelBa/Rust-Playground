@@ -16,6 +16,7 @@ pub fn get_file_content() -> Vec<Info> {
     let reader = BufReader::new(&mut file);
 
     reader.split(b'\n')
+        .skip(1)
         .map(|l| l.unwrap())
         .map(|l| decode_iso(l))
         .map(|l| split_line(l))
@@ -43,15 +44,14 @@ fn starts_with(s: String, c: char) -> bool {
 
 fn build_info(line: Vec<String>) -> Info {
     Info {
-        district_id:  line.get(0).unwrap().parse::<u8>().expect("index 0 wasn't an int"),
+        district_id:  line.get(0).unwrap().parse::<u8>().expect(&format!("index 0 wasn't an int: '{}'", line.get(0).unwrap())),
         district:     line.get(1).unwrap().clone(),
-        city_area_id: line.get(2).unwrap().parse::<u8>().expect("index 2 wasn't an int"),
+        city_area_id: line.get(2).unwrap().parse::<u16>().expect(&format!("index 2 wasn't an int: {}", line.get(2).unwrap())),
         city_area:    line.get(3).unwrap().clone(),
         gender:       if line.get(4).unwrap() == "01" { Gender::Female } else { Gender::Male },
         nationality:  if line.get(5).unwrap() == "D" { Nationality::German } else { Nationality::Other },
         age_range:    age_range(line.get(6).unwrap().clone()),
-        amount:       line.get(7).unwrap().parse::<u16>().expect("index 7 wasn't an int")
-
+        amount:       parse_amount(line.get(7).map(|s| s.to_string()))
     }
 }
 
@@ -71,10 +71,18 @@ fn age_range(s: String) -> AgeRange {
     AgeRange(start, end)
 }
 
+fn parse_amount(maybe_string: Option<String>) -> u16 {
+    let x: u16 = maybe_string.and_then(|s|
+        s.split(',').map(|s| String::from(s)).collect::<Vec<String>>().clone().get(0).map(|s| s.parse::<u16>().unwrap())
+    ).unwrap();
+
+    x
+}
+
 pub struct Info {
     district_id: u8,
     district: String,
-    city_area_id: u8,
+    city_area_id: u16,
     city_area: String,
     gender: Gender,
     nationality: Nationality,
