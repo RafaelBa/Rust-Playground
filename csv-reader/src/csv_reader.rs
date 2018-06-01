@@ -72,11 +72,19 @@ fn age_range(s: String) -> AgeRange {
 }
 
 fn parse_amount(maybe_string: Option<String>) -> u16 {
-    let x: u16 = maybe_string.and_then(|s|
-        s.split(',').map(|s| String::from(s)).collect::<Vec<String>>().clone().get(0).map(|s| s.parse::<u16>().unwrap())
-    ).unwrap();
-
-    x
+    //fn
+    maybe_string.and_then(|s|
+        s.split(',')
+            .map(|s| String::from(s))
+            .collect::<Vec<String>>()
+            .get(0)
+            .clone()
+            .map(|s|
+                s
+                .parse::<u16>()
+                .unwrap()
+            )
+    ).unwrap()
 }
 
 pub struct Info {
