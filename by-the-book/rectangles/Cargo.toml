@@ -1,0 +1,6 @@
+[package]
+name = "rectangles"
+version = "0.1.0"
+authors = ["Rafael <11751298+RafaelBa@users.noreply.github.com>"]
+
+[dependencies]

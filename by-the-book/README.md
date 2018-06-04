@@ -10,3 +10,4 @@ Chapters
 * 3.5 branches
 * 3.5 loops
 * 4.1 ownership
+* 5.2 rectangles
