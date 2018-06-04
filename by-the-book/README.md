@@ -9,3 +9,4 @@ Chapters
 * 3.1 variables
 * 3.5 branches
 * 3.5 loops
+* 4.1 ownership
