@@ -11,3 +11,6 @@ Chapters
 * 3.5 loops
 * 4.1 ownership
 * 5.2 rectangles
+* 6.1 ip-address
+* 6.2 coins
+* 6.3 coins
