@@ -14,3 +14,4 @@ Chapters
 * 6.1 ip-address
 * 6.2 coins
 * 6.3 coins
+* 7.1 communicator
